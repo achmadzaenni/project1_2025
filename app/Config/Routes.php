@@ -7,8 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Auth::index');
 
-// Regis Routes
-$routes->group('regis', function($routes){
-    $routes->add('/', 'Auth::regis');
-    $routes->add('auth', 'Auth::regisAuth');
-});
+$routes->get('auth/regis', 'Auth::index');
+$routes->post('auth/registrasi', 'Auth::regisAuth');
+$routes->get('auth/login', 'Auth::login');
+
