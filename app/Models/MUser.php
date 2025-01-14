@@ -22,4 +22,9 @@ class MUser extends Model
 
 
     protected $useTimestamps = false; 
+    
+    public function authenticate($email, $password)
+    {
+        return $this->where('email', $email)->where('password', $password)->get()->getRowArray();
+    }
 }
