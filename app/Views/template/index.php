@@ -25,10 +25,10 @@
                                 <input type="text" class="form-control" placeholder="Masukan Alamat">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-danger w-100">Registrasi</button>
+                                <button type="submit" class="btn btn-danger w-100"><?= $title ?></button>
                             </div>
                             <hr>
-                            <p class="text-center">Sudah mempunyai akun ? <a class="text-decoration-none text-danger" href="">Login</a></p>
+                            <p class="text-center">Sudah mempunyai akun ? <a class="text-decoration-none text-danger" href="<?= base_url('auth/login') ?>">Login</a></p>
                         </form>
                     </div>
                 </div>
