@@ -4,6 +4,11 @@ namespace App\Controllers;
 
 class Auth extends BaseController
 {
+
+    public function __construct(){
+
+    }
+
     public function index()
     {
         $data = [
@@ -14,10 +19,19 @@ class Auth extends BaseController
 
     public function login()
     {
-$data = [
+        $data = [
             'title' => 'Login'
         ];
-
         return view('template/login',$data);
+    }
+
+    public function regisAuth(){
+        $nama = $this->request->getPost('nama');
+        $email = $this->request->getPost('email');
+        $telp = $this->request->getPost('telp');
+        $alamat = $this->request->getPost('alamat');
+        $password = $this->request->getPost('password');
+
+        // $this->;
     }
 }
