@@ -41,7 +41,7 @@ class Auth extends BaseController
 
         if ($user) {
             session()->set([
-                'userid' => $user['userid'],
+                'userid' => $user['id'],
                 'email' => $user['email'],
                 'logged_in' => true,
             ]);
@@ -51,10 +51,11 @@ class Auth extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
         }
     }
+    
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-        $telp = $this->request->getPost('telp');
+        $phone = $this->request->getPost('phone');
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
@@ -63,7 +64,6 @@ class Auth extends BaseController
         $res = array();
     
         try {
-
             if(empty($nama) || empty($email) || empty($phone) || empty($alamat) || empty($password)){
                 return $this->response->setJSON([
                     'status' => 'error',
@@ -82,7 +82,7 @@ class Auth extends BaseController
             $data = [
                 'username' => $nama,
                 'email' => $email,
-                'phone' => $telp,
+                'phone' => $phone,
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),

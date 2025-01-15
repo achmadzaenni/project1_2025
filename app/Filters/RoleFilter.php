@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\Filters\BaseFilter;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\RequestInterface;
@@ -15,6 +16,10 @@ class RoleFilter extends BaseFilter implements FilterInterface
      *
      * @return RedirectResponse|void
      */
+    protected $authenticate;
+    protected $reservedRoutes;
+    protected $landingRoute;
+    protected $authorize;
     public function before(RequestInterface $request, $arguments = null)
     {
         // If no user is logged in then send them to the login form.

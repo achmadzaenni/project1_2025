@@ -12,7 +12,6 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-fill"></i></span>
                                 <input type="email" name="email" class="form-control" id="email" placeholder="Masukan Email" required>
                             </div>
-
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
                                 <input type="password" name="password" class="form-control" id="password" placeholder="Masukan password" required>
