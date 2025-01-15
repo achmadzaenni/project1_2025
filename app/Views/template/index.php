@@ -42,8 +42,11 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2d25ca3572d3b2e6db831a1c1618c3069c1c7d9a
 <script>
     $(document).ready(function() {
         $('#regisForm').on('submit', RegisAuth);
@@ -60,6 +63,10 @@
             toast.onmouseenter = Swal.stopTimer;
             toast.onmouseleave = Swal.resumeTimer;
         }
+    });
+
+    $(document).ready(function() {
+        $('#regisForm').on('submit', RegisAuth);
     });
 
     function RegisAuth(event) {
@@ -82,17 +89,17 @@
                 password: password,
             },
             success: function(response) {
-                if (response.status === 'success') {
+                if (response.status === 'error') {
                     Toast.fire({
-                        icon: "success",
-                        title: response.message
-                    }).then((result) => {
-                        window.location.href = response.redirect;
+                        icon: "error",
+                        title: response.pesan
                     });
                 } else {
                     Toast.fire({
-                        icon: "error",
-                        title: response.message
+                        icon: "success",
+                        title: response.pesan
+                    }).then((result) => {
+                        window.location.href = '<?= base_url('auth/login') ?>';
                     });
                 }
             },

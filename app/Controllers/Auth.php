@@ -54,7 +54,11 @@ class Auth extends BaseController
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
+<<<<<<< HEAD
         $telp = $this->request->getPost('telp');
+=======
+        $phone = $this->request->getPost('phone');
+>>>>>>> 2d25ca3572d3b2e6db831a1c1618c3069c1c7d9a
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
@@ -64,10 +68,10 @@ class Auth extends BaseController
     
         try {
 
-            if(empty($nama) || empty($email) || empty($telp) || empty($alamat) || empty($password)){
+            if(empty($nama) || empty($email) || empty($phone) || empty($alamat) || empty($password)){
                 return $this->response->setJSON([
                     'status' => 'error',
-                    'message' => 'Data tidak boleh kosong',
+                    'pesan' => 'Data tidak boleh kosong',
                 ]);
             }
 
@@ -75,7 +79,7 @@ class Auth extends BaseController
             if($existingdata){
                 return $this->response->setJSON([
                     'status'=> 'error',
-                    'message' => 'Anda sudah terdaftar'
+                    'pesan' => 'Anda sudah terdaftar'
                 ]);
             }
 
@@ -87,22 +91,22 @@ class Auth extends BaseController
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
                 'updatedat' => date('Y-m-d H:i:s'),
-                'createdby' => 1
+                'createdby' => 1,
+                'updatedby' => 1
             ];
     
             $this->userModel->store($data);
             $this->dbs->transCommit();
 
-            $res = [
-                'sukses' => '1',
+            return $this->response->setJSON([
+                'status' => 'success',
                 'pesan' => 'Berhasil Regis',
-                'link' => base_url('auth/login'),
-            ];
+            ]);
         } catch (\Throwable $th) {
             $this->dbs->transRollback();
             return $this->response->setJSON([
                 'status' => 'error',
-                'message' => 'Registrasi gagal!'
+                'pesan' => 'Registrasi gagal!'
             ]);
         }
         echo json_encode($res);
