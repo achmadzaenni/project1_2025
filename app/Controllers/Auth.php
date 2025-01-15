@@ -7,7 +7,7 @@ use Exception;
 class Auth extends BaseController
 {
     protected $userModel;
-protected $dbs;
+    protected $dbs;
     public function __construct()
     {
         $this->userModel = new MUser();
@@ -29,7 +29,6 @@ protected $dbs;
             'title' => 'Login'
         ];
         return view('template/login', $data);
-        return view('template/login',$data);
     }
 
     public function authenticate()
@@ -60,19 +59,34 @@ protected $dbs;
         return view('page', $data);
     }
 
-
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
         $telp = $this->request->getPost('telp');
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
-
+    
         $this->dbs->transBegin();
-
+    
         $res = array();
-
+    
         try {
+
+            if(empty($nama) || empty($email) || empty($telp) || empty($alamat) || empty($password)){
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Data tidak boleh kosong',
+                ]);
+            }
+
+            $existingdata = $this->userModel->getOne($email);
+            if($existingdata){
+                return $this->response->setJSON([
+                    'status'=> 'error',
+                    'message' => 'Anda sudah terdaftar'
+                ]);
+            }
+
             $data = [
                 'username' => $nama,
                 'email' => $email,
@@ -80,50 +94,24 @@ protected $dbs;
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
-                'createdby' => 1,
-                'updateddat' => date('Y-m-d H:i:s'),
-                'updatedby' => 1,
+                'updatedat' => date('Y-m-d H:i:s'),
+                'createdby' => 1
             ];
-
-            if (empty($nama)) {
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Nama wajib diisi'
-                ]);
-            }
-
-            if (empty($password)) {
-                return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Password Wajib Diisi'
-                ]);
-            }
-
-            // $existingData = $this->userModel->getOne($nama);
-            // if ($existingData) {
-            //     return $this->response->setJSON(['status' => 'error',
-            //     'message' => 'Nama Sudah terdaftar'
-            // ]);
-            // }
-
+    
             $this->userModel->store($data);
             $this->dbs->transCommit();
-
-            $res = [
-                'sukses' => '1',
-                'pesan' => 'Berhasil Regis',
-                'link' => base_url('auth/login'),
-            ];
-
-
-        } catch (\Throwable $th) {
+    
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Registrasi berhasil!',
+                'redirect' => base_url('auth/login')
+            ]);
+        } catch (\Exception $e) {
             $this->dbs->transRollback();
-
-            $res = [
-                'sukses' => '0',
-                'pesan' => $th->getMessage(),
-                'link' => base_url('/'),
-            ];
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Registrasi gagal!'
+            ]);
         }
         echo json_encode($res);
     }
