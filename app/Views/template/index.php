@@ -25,12 +25,11 @@
                                 <input type="text" class="form-control" placeholder="Masukan Alamat" name="alamat" id="alamat">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-eye-fill"></i></span>
                                 <input type="password" class="form-control" placeholder="Masukan Password" name="password" id="password">
-                                <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-danger w-100"><?= $title ?></button>
+                                <button type="submit" class="btn btn-danger w-100">Registrasi</button>
                             </div>
                         </form>
                         <hr>
@@ -42,13 +41,11 @@
     </div>
 </div>
 
-
+<!-- Include jQuery and SweetAlert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#regisForm').on('submit', RegisAuth);
-    });
-
     // Sweet Alert
     const Toast = Swal.mixin({
         toast: true,
@@ -103,11 +100,9 @@
         });
     }
 
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordField = document.getElementById('password');
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-    });</script>
+    $(document).ready(function() {
+        $('#regisForm').on('submit', RegisAuth);
+    });
+    
+</script>
 <?= $this->endSection() ?>
