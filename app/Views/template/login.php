@@ -54,21 +54,7 @@ use CodeIgniter\HTTP\Method;
                     $('#email').addClass('is-valid').removeClass('is-invalid');
                     $('#password').addClass('is-valid').removeClass('is-invalid');
                     $('#togglePassword').show();
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        },  
-                    });
-                    Toast.fire({
-                        icon: "success",
-                        title: "Signed in successfully"
-                    });
+                    swal.fire('success', response.message, 'success');
                     window.location.href = '<?= base_url('auth/page') ?>';
                 } else {
                     $('#email').addClass('is-invalid').removeClass('is-valid');
