@@ -6,7 +6,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('test', 'Auth::koneksi');
 $routes->get('/', 'Auth::index');
 
 $routes->get('auth/regis', 'Auth::index');

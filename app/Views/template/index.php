@@ -42,11 +42,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 2d25ca3572d3b2e6db831a1c1618c3069c1c7d9a
 <script>
     $(document).ready(function() {
         $('#regisForm').on('submit', RegisAuth);

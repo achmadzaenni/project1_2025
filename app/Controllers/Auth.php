@@ -42,7 +42,7 @@ class Auth extends BaseController
         if ($user) {
             session()->set([
                 'userid' => $user['userid'],
-                'email' => $user['usernm'],
+                'email' => $user['email'],
                 'logged_in' => true,
             ]);
 
@@ -54,11 +54,7 @@ class Auth extends BaseController
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-<<<<<<< HEAD
         $telp = $this->request->getPost('telp');
-=======
-        $phone = $this->request->getPost('phone');
->>>>>>> 2d25ca3572d3b2e6db831a1c1618c3069c1c7d9a
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
