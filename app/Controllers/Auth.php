@@ -31,30 +31,7 @@ class Auth extends BaseController
         ];
         return view('template/login', $data);
     }
-
-<<<<<<< HEAD
-    public function authenticate()
-    {
-        $email = $this->request->getPost('email');
-        $password = md5($this->request->getPost('password'));
-
-        $user = $this->userModel->authenticate($email, $password);
-
-        if ($user) {
-            session()->set([
-                'userid' => $user['id'],
-                'email' => $user['email'],
-                'logged_in' => true,
-            ]);
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
-        }
-    }
     
-=======
->>>>>>> 5463b89d0d0bae83c941ed0050f6c5ddf1830c1f
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
