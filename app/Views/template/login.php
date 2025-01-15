@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-danger w-100" onclick="loginAuth()"><?= $title ?></button>
+                                <button type="submit" class="btn btn-danger w-100"><?= $title ?></button>
                             </div>
                             <hr>
                             <p class="text-center">Sudah mempunyai akun ? <a class="text-decoration-none text-danger" href="<?= base_url('/') ?>">Registrasi</a></p>

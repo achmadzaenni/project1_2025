@@ -35,7 +35,7 @@ class Auth extends BaseController
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-        $phone = $this->request->getPost('phone');
+        $telp = $this->request->getPost('telp');
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
@@ -61,7 +61,7 @@ class Auth extends BaseController
             $data = [
                 'username' => $nama,
                 'email' => $email,
-                'phone' => $phone,
+                'phone' => $telp,
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
@@ -85,6 +85,7 @@ class Auth extends BaseController
             ]);
         }
     }
+
     public function authenticate()
     {
         $email = $this->request->getPost('email');
