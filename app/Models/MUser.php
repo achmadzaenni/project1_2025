@@ -23,7 +23,12 @@ class MUser extends Model
 
     protected $useTimestamps = false; 
 
+
     public function store($data){
         return $this->insert($data);
+    }
+    public function authenticate($email, $password)
+    {
+        return $this->where('email', $email)->where('password', $password)->get()->getRowArray();
     }
 }

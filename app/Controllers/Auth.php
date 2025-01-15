@@ -1,18 +1,19 @@
 <?php
-
 namespace App\Controllers;
-use Exception;
+
 use App\Models\MUser;
+use Exception;
 
 class Auth extends BaseController
 {
-
     protected $userModel;
-    protected $dbs;
-    public function __construct(){
+protected $dbs;
+    public function __construct()
+    {
         $this->userModel = new MUser();
         $this->dbs = db_connect();
     }
+
 
     public function index()
     {
@@ -27,8 +28,38 @@ class Auth extends BaseController
         $data = [
             'title' => 'Login'
         ];
+        return view('template/login', $data);
         return view('template/login',$data);
     }
+
+    public function authenticate()
+    {
+        $email = $this->request->getPost('email');
+        $password = md5($this->request->getPost('password'));
+
+        $user = $this->userModel->where('email', $email)->first();
+
+        if ($user && $user['password'] === $password) {
+            session()->set([
+                'id' => $user['id'],
+                'email' => $user['email'],
+                'logged_in' => true,
+            ]);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
+        }
+    }
+
+    public function page()
+    {
+        $data = [
+            'title' => 'Rahasia'
+        ];
+        return view('page', $data);
+    }
+
 
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
