@@ -18,7 +18,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="telp" id="telp">
+                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="phone" id="phone">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
@@ -67,7 +67,7 @@
 
         var nama = $('#nama').val();
         var email = $('#email').val();
-        var telp = $('#telp').val();
+        var phone = $('#phone').val();
         var alamat = $('#alamat').val();
         var password = $('#password').val();
 
@@ -77,7 +77,7 @@
             data: {
                 nama: nama,
                 email: email,
-                telp: telp,
+                phone: phone,
                 alamat: alamat,
                 password: password,
             },
@@ -109,5 +109,6 @@
         passwordField.setAttribute('type', type);
         this.classList.toggle('bi-eye');
         this.classList.toggle('bi-eye-slash');
-    });</script>
+    });
+</script>
 <?= $this->endSection() ?>

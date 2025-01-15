@@ -29,7 +29,7 @@ class Database extends Config
         'hostname'     => 'localhost',
         'username'     => 'postgres',
         'password'     => 'achmad1312',
-        'database'     => 'projcet1',
+        'database'     => 'project1',
         'DBDriver'     => 'Postgre',
         'DBPrefix'     => '',
         'pConnect'     => false,
