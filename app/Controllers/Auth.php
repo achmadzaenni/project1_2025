@@ -32,41 +32,7 @@ class Auth extends BaseController
         return view('template/login', $data);
     }
 
-    public function authenticate()
-    {
-        $email = $this->request->getPost('email');
-        $password = md5($this->request->getPost('password'));
-
-        $user = $this->userModel->authenticate($email, $password);
-
-        if ($user) {
-            session()->set([
-                'userid' => $user['userid'],
-                'email' => $user['usernm'],
-                'logged_in' => true,
-            ]);
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
-        }
-    }
-
-    public function page()
-    {
-        $data = [
-            'title' => 'Rahasia'
-        ];
-        return view('page', $data);
-    }
-
-<<<<<<< HEAD
-
-    public function regisAuth()
-    {
-=======
     public function regisAuth(){
->>>>>>> 63d5e2844d467fe26ba04f3174fac5bd748cf079
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
         $telp = $this->request->getPost('telp');
@@ -107,7 +73,6 @@ class Auth extends BaseController
     
             $this->userModel->store($data);
             $this->dbs->transCommit();
-<<<<<<< HEAD
 
             $res = [
                 'sukses' => '1',
@@ -115,15 +80,6 @@ class Auth extends BaseController
                 'link' => base_url('auth/login'),
             ];
         } catch (\Throwable $th) {
-=======
-    
-            return $this->response->setJSON([
-                'status' => 'success',
-                'message' => 'Registrasi berhasil!',
-                'redirect' => base_url('auth/login')
-            ]);
-        } catch (\Exception $e) {
->>>>>>> 63d5e2844d467fe26ba04f3174fac5bd748cf079
             $this->dbs->transRollback();
             return $this->response->setJSON([
                 'status' => 'error',
@@ -132,4 +88,32 @@ class Auth extends BaseController
         }
         echo json_encode($res);
     }
+    public function authenticate()
+    {
+        $email = $this->request->getPost('email');
+        $password = md5($this->request->getPost('password'));
+
+        $user = $this->userModel->authenticate($email, $password);
+
+        if ($user) {
+            session()->set([
+                'userid' => $user['id'],
+                'email' => $user['usernm'],
+                'logged_in' => true,
+            ]);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
+        }
+    }
+
+    public function page()
+    {
+        $data = [
+            'title' => 'Rahasia'
+        ];
+        return view('page', $data);
+    }
+
 }

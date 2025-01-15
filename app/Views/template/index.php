@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -109,6 +109,5 @@
         passwordField.setAttribute('type', type);
         this.classList.toggle('bi-eye');
         this.classList.toggle('bi-eye-slash');
-    });
-</script>
+    });</script>
 <?= $this->endSection() ?>

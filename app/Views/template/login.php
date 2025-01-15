@@ -33,37 +33,46 @@
     </div>
 
     <script>
-    function loginAuth() {
-        var email = $('#email').val();
-        var password = $('#password').val();
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
 
         $.ajax({
             url: '<?= base_url('auth/authenticate') ?>',
             type: 'POST',
-            data: {
-                email: email,
-                password: password
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    $('#email').addClass('is-valid').removeClass('is-invalid');
-                    $('#password').addClass('is-valid').removeClass('is-invalid');
-                    $('#togglePassword').show();
-                    swal.fire('success', response.message, 'success');
-                    window.location.href = '<?= base_url('auth/page') ?>';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Berhasil',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = '<?= base_url('auth/page') ?>';
+                    });
                 } else {
-                    $('#email').addClass('is-invalid').removeClass('is-valid');
-                    $('#password').addClass('is-invalid').removeClass('is-valid');
-                    $('#togglePassword').hide();
-                    swal.fire('error', response.message, 'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: response.message,
+                    });
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 console.error('Error:', thrownError);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                });
             }
         });
-    }
+    });
 
     document.getElementById('togglePassword').addEventListener('click', function () {
         const passwordField = document.getElementById('password');
