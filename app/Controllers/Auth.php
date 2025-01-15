@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\MUser;
@@ -7,7 +8,7 @@ use Exception;
 class Auth extends BaseController
 {
     protected $userModel;
-protected $dbs;
+    protected $dbs;
     public function __construct()
     {
         $this->userModel = new MUser();
@@ -29,7 +30,6 @@ protected $dbs;
             'title' => 'Login'
         ];
         return view('template/login', $data);
-        return view('template/login',$data);
     }
 
     public function authenticate()
@@ -37,12 +37,12 @@ protected $dbs;
         $email = $this->request->getPost('email');
         $password = md5($this->request->getPost('password'));
 
-        $user = $this->userModel->where('email', $email)->first();
+        $user = $this->userModel->authenticate($email, $password);
 
-        if ($user && $user['password'] === $password) {
+        if ($user) {
             session()->set([
-                'id' => $user['id'],
-                'email' => $user['email'],
+                'userid' => $user['userid'],
+                'email' => $user['usernm'],
                 'logged_in' => true,
             ]);
 
@@ -61,7 +61,8 @@ protected $dbs;
     }
 
 
-    public function regisAuth(){
+    public function regisAuth()
+    {
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
         $telp = $this->request->getPost('telp');
@@ -114,8 +115,6 @@ protected $dbs;
                 'pesan' => 'Berhasil Regis',
                 'link' => base_url('auth/login'),
             ];
-
-
         } catch (\Throwable $th) {
             $this->dbs->transRollback();
 

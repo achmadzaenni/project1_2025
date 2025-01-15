@@ -1,7 +1,3 @@
-<?php
-
-use CodeIgniter\HTTP\Method;
-?>
 <?= $this->extend('template/template') ?>
 <?= $this->section('content') ?>
     <div class="container-fluid">
