@@ -41,8 +41,6 @@ class Auth extends BaseController
     
         $this->dbs->transBegin();
     
-        $res = array();
-    
         try {
 
             if(empty($nama) || empty($email) || empty($phone) || empty($alamat) || empty($password)){
@@ -86,7 +84,6 @@ class Auth extends BaseController
                 'pesan' => 'Registrasi gagal!'
             ]);
         }
-        echo json_encode($res);
     }
     public function authenticate()
     {
@@ -98,7 +95,7 @@ class Auth extends BaseController
         if ($user) {
             session()->set([
                 'userid' => $user['id'],
-                'email' => $user['usernm'],
+                'email' => $user['email'],
                 'logged_in' => true,
             ]);
 
