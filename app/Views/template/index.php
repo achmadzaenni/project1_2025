@@ -96,9 +96,12 @@
         });
     }
 
-    $(document).ready(function() {
-        $('#regisForm').on('submit', RegisAuth);
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordField = document.getElementById('password');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
     });
-    
 </script>
 <?= $this->endSection() ?>
