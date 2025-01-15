@@ -55,6 +55,10 @@
         }
     });
 
+    $(document).ready(function() {
+        $('#regisForm').on('submit', RegisAuth);
+    });
+
     function RegisAuth(event) {
         event.preventDefault();
 
