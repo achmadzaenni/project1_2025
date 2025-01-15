@@ -31,7 +31,7 @@ class Auth extends BaseController
         ];
         return view('template/login', $data);
     }
-
+    
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');

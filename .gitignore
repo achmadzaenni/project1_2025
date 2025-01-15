@@ -41,6 +41,7 @@ $RECYCLE.BIN/
 #-------------------------
 # These should never be under version control,
 # as it poses a security risk.
+
 .env
 .vagrant
 Vagrantfile
@@ -64,6 +65,13 @@ writable/debugbar/*
 !writable/debugbar/.gitkeep
 
 php_errors.log
+
+# Ignore all files in app/Config
+app/Config/*
+
+# But do not ignore App.php and Database.php
+!app/Config/App.php
+!app/Config/Database.php
 
 #-------------------------
 # User Guide Temp Files
