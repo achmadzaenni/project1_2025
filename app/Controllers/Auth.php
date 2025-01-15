@@ -63,7 +63,7 @@ class Auth extends BaseController
             $data = [
                 'username' => $nama,
                 'email' => $email,
-                'phone' => $telp,
+                'phone' => $phone,
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
@@ -97,8 +97,8 @@ class Auth extends BaseController
 
         if ($user) {
             session()->set([
-                'id' => $user['id'],
-                'email' => $user['email'],
+                'userid' => $user['id'],
+                'email' => $user['usernm'],
                 'logged_in' => true,
             ]);
 
