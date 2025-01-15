@@ -18,7 +18,7 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="telp" id="telp">
+                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="phone" id="phone">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
@@ -42,6 +42,7 @@
     </div>
 </div>
 
+
 <script>
     $(document).ready(function() {
         $('#regisForm').on('submit', RegisAuth);
@@ -60,16 +61,12 @@
         }
     });
 
-    $(document).ready(function() {
-        $('#regisForm').on('submit', RegisAuth);
-    });
-
     function RegisAuth(event) {
         event.preventDefault();
 
         var nama = $('#nama').val();
         var email = $('#email').val();
-        var telp = $('#telp').val();
+        var phone = $('#phone').val();
         var alamat = $('#alamat').val();
         var password = $('#password').val();
 
@@ -79,7 +76,7 @@
             data: {
                 nama: nama,
                 email: email,
-                telp: telp,
+                phone: phone,
                 alamat: alamat,
                 password: password,
             },
@@ -94,7 +91,7 @@
                         icon: "success",
                         title: response.pesan
                     }).then((result) => {
-                        window.location.href = '<?= base_url('auth/login') ?>';
+                        window.location.href = response.redirect;
                     });
                 }
             },
@@ -111,5 +108,6 @@
         passwordField.setAttribute('type', type);
         this.classList.toggle('bi-eye');
         this.classList.toggle('bi-eye-slash');
-    });</script>
+    });
+</script>
 <?= $this->endSection() ?>

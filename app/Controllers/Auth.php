@@ -35,21 +35,20 @@ class Auth extends BaseController
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-        $telp = $this->request->getPost('telp');
+        $phone = $this->request->getPost('phone');
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
         $this->dbs->transBegin();
     
         try {
-
             if(empty($nama) || empty($email) || empty($phone) || empty($alamat) || empty($password)){
                 return $this->response->setJSON([
                     'status' => 'error',
                     'pesan' => 'Data tidak boleh kosong',
                 ]);
             }
-
+    
             $existingdata = $this->userModel->getOne($email);
             if($existingdata){
                 return $this->response->setJSON([
@@ -57,11 +56,11 @@ class Auth extends BaseController
                     'pesan' => 'Anda sudah terdaftar'
                 ]);
             }
-
+    
             $data = [
                 'username' => $nama,
                 'email' => $email,
-                'phone' => $telp,
+                'phone' => $phone,
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
@@ -70,14 +69,15 @@ class Auth extends BaseController
                 'updatedby' => 1
             ];
     
-            $this->userModel->store($data);
+            $this->userModel->insert($data);
             $this->dbs->transCommit();
-
+    
             return $this->response->setJSON([
                 'status' => 'success',
-                'pesan' => 'Berhasil Regis',
+                'pesan' => 'Registrasi berhasil!',
+                'redirect' => base_url('auth/login')
             ]);
-        } catch (\Throwable $th) {
+        } catch (\Exception $e) {
             $this->dbs->transRollback();
             return $this->response->setJSON([
                 'status' => 'error',
