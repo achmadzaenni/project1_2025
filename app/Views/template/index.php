@@ -18,18 +18,19 @@
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-telephone-fill"></i></span>
-                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="phone" id="phone">
+                                <input type="text" class="form-control" placeholder="Masukan Telepon" name="telp" id="telp">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt-fill"></i></span>
                                 <input type="text" class="form-control" placeholder="Masukan Alamat" name="alamat" id="alamat">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-eye-fill"></i></span>
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
                                 <input type="password" class="form-control" placeholder="Masukan Password" name="password" id="password">
+                                <i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-danger w-100">Registrasi</button>
+                                <button type="submit" class="btn btn-danger w-100"><?= $title ?></button>
                             </div>
                         </form>
                         <hr>
@@ -41,11 +42,13 @@
     </div>
 </div>
 
-<!-- Include jQuery and SweetAlert -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <script>
+    $(document).ready(function() {
+        $('#regisForm').on('submit', RegisAuth);
+    });
+
     // Sweet Alert
     const Toast = Swal.mixin({
         toast: true,
@@ -64,7 +67,7 @@
 
         var nama = $('#nama').val();
         var email = $('#email').val();
-        var phone = $('#phone').val();
+        var telp = $('#telp').val();
         var alamat = $('#alamat').val();
         var password = $('#password').val();
 
@@ -74,7 +77,7 @@
             data: {
                 nama: nama,
                 email: email,
-                phone: phone,
+                telp: telp,
                 alamat: alamat,
                 password: password,
             },
@@ -106,6 +109,5 @@
         passwordField.setAttribute('type', type);
         this.classList.toggle('bi-eye');
         this.classList.toggle('bi-eye-slash');
-    });
-</script>
+    });</script>
 <?= $this->endSection() ?>

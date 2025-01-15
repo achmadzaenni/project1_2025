@@ -32,10 +32,29 @@ class Auth extends BaseController
         return view('template/login', $data);
     }
 
+    public function authenticate()
+    {
+        $email = $this->request->getPost('email');
+        $password = md5($this->request->getPost('password'));
+
+        $user = $this->userModel->authenticate($email, $password);
+
+        if ($user) {
+            session()->set([
+                'userid' => $user['userid'],
+                'email' => $user['usernm'],
+                'logged_in' => true,
+            ]);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
+        }
+    }
     public function regisAuth(){
         $nama = $this->request->getPost('nama');
         $email = $this->request->getPost('email');
-        $telp = $this->request->getPost('phone');
+        $telp = $this->request->getPost('telp');
         $alamat = $this->request->getPost('alamat');
         $password = $this->request->getPost('password');
     
@@ -63,7 +82,7 @@ class Auth extends BaseController
             $data = [
                 'username' => $nama,
                 'email' => $email,
-                'phone' => $phone,
+                'phone' => $telp,
                 'address' => $alamat,
                 'password' => md5($password),
                 'createdat' => date('Y-m-d H:i:s'),
@@ -87,25 +106,6 @@ class Auth extends BaseController
             ]);
         }
         echo json_encode($res);
-    }
-    public function authenticate()
-    {
-        $email = $this->request->getPost('email');
-        $password = md5($this->request->getPost('password'));
-
-        $user = $this->userModel->authenticate($email, $password);
-
-        if ($user) {
-            session()->set([
-                'userid' => $user['id'],
-                'email' => $user['usernm'],
-                'logged_in' => true,
-            ]);
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Login Berhasil']);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Salah email atau password']);
-        }
     }
 
     public function page()
